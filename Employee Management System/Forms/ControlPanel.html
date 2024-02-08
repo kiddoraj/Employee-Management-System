@@ -1,0 +1,464 @@
+<!-- saved from url=(0016)http://localhost -->
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <title>Employee Onboarding Process</title>
+      <link rel="stylesheet" type="text/css" href="FormStyle.css" />
+   </head>
+   <body>
+      <img class="logo" src="Onboard.png" alt="Onboard Logo" />
+      <div class="form-style">
+         <div class="form-style-heading">Employee Onboarding Process</div>
+         <form id="controlPanelForm" action="" method="post">
+            <div class="checkbox-container">
+               <label class="checkbox-label">
+               <input
+                  type="checkbox"
+                  id="buildDataServiceSchema"
+                  name="buildDataServiceSchema"
+                  class="checkbox-input"
+                  />
+               <span>Build Data Service Schema</span>
+               </label>
+               <label class="checkbox-label">
+               <input
+                  type="checkbox"
+                  id="useLLM"
+                  name="useLLM"
+                  class="checkbox-input"
+                  />
+               <span>LLM Synthetic Data Creation</span>
+               </label>
+            </div>
+            <div id="templateDropdownContainer">
+               <label for="excelTemplate"
+                  >
+                  <span>XLSX/CSV Template</span>
+                  <select
+                     id="excelTemplate"
+                     class="select-field"
+                     onchange="toggleFileInput(this.value)"
+                     >
+                     <option value="" disabled selected>
+                        Select an option
+                     </option>
+                     <option value="withTemplate">
+                        XLSX/CSV Template
+                     </option>
+                     <option value="withoutTemplate">
+                        No XLSX/CSV Template
+                     </option>
+                  </select>
+               </label>
+            </div>
+            <div id="fileInputContainer" style="display: none">
+               <label for="fileInput"
+                  ><span>Upload XLSX/CSV</span>
+               <input
+                  type="file"
+                  id="fileInput"
+                  class="input-field"
+                  name="fileInput"
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  />
+               </label>
+            </div>
+            <div id="fileNameLabel" style="display: none">
+               <label for="fileName"
+                  ><span>File Name</span>
+               <input
+                  type="text"
+                  id="fileName"
+                  class="input-field"
+                  name="fileName"
+                  />
+               </label>
+            </div>
+            <div id="llmServiceContainer" style="display: none">
+               <label for="llmService"
+                  >
+                  <span>LLM Service</span>
+                  <select id="llmService" class="select-field">
+                     <option value="" disabled selected>
+                        Select an option
+                     </option>
+                     <option value="OpenAI">OpenAI</option>
+                     <option value="AzureOpenAI">Azure OpenAI</option>
+                  </select>
+               </label>
+            </div>
+            <div id="numberOfRowsContainer" style="display: none">
+               <label for="numberOfRows"
+                  ><span># of Rows to add</span>
+               <input
+                  type="text"
+                  id="numberOfRows"
+                  class="input-field"
+                  name="numberOfRows"
+                  />
+               </label>
+            </div>
+            <div id="notificationBanner" class="notification-banner"></div>
+            <div id="tableContainer" style="display: none">
+               <table id="dataEntryTable">
+                  <tr id="headerRow">
+                     <th>
+                        <input
+                           type="text"
+                           value="Header 1"
+                           class="header-input"
+                           onfocus="clearPlaceholder(this, 'Header 1')"
+                           onblur="restorePlaceholder(this, 'Header 1')"
+                           />
+                        <select class="select-field">
+                           <option value="General">General</option>
+                           <option value="Date">Date</option>
+                           <option value="Number">Number</option>
+                        </select>
+                     </th>
+                     <th>
+                        <input
+                           type="text"
+                           value="Header 2"
+                           class="header-input"
+                           onfocus="clearPlaceholder(this, 'Header 2')"
+                           onblur="restorePlaceholder(this, 'Header 2')"
+                           />
+                        <select class="select-field">
+                           <option value="General">General</option>
+                           <option value="Date">Date</option>
+                           <option value="Number">Number</option>
+                        </select>
+                     </th>
+                     <th>
+                        <input
+                           type="text"
+                           value="Header 3"
+                           class="header-input"
+                           onfocus="clearPlaceholder(this, 'Header 3')"
+                           onblur="restorePlaceholder(this, 'Header 3')"
+                           />
+                        <select class="select-field">
+                           <option value="General">General</option>
+                           <option value="Date">Date</option>
+                           <option value="Number">Number</option>
+                        </select>
+                     </th>
+                  </tr>
+                  <tr class="fake-row">
+                     <td>....</td>
+                     <td>....</td>
+                     <td>....</td>
+                  </tr>
+                  <tr class="fake-row">
+                     <td>....</td>
+                     <td>....</td>
+                     <td>....</td>
+                  </tr>
+               </table>
+               <div class="column-buttons">
+                  <button
+                     type="button"
+                     class="add-column-btn"
+                     onclick="addColumn()"
+                     >
+                  Add Column
+                  </button>
+                  <button
+                     type="button"
+                     class="add-column-btn"
+                     onclick="removeColumn()"
+                     >
+                  Remove Column
+                  </button>
+               </div>
+            </div>
+            <div id="llmPromptContainer" style="display: none">
+               <label for="llmPromptDetails"
+                  ><span>LLM Prompt Details</span>
+               <textarea
+                  id="llmPromptDetails"
+                  class="input-field"
+                  name="llmPromptDetails"
+                  placeholder="Select a template option"
+                  style="width: 100%; height: 150px"
+                  ></textarea>
+               </label>
+            </div>
+            <div class="buttons">
+               <input
+                  type="submit"
+                  value="Execute"
+                  id="submitButton"
+                  onclick="return submitValues(this)"
+                  />
+               <input
+                  type="submit"
+                  value="Cancel"
+                  id="cancelButton"
+                  onclick="submitValues(this)"
+                  />
+            </div>
+         </form>
+      </div>
+      <script>
+         // Older, more compatible way to dispatch events
+                function dispatchChangeEvent(elementId) {
+                    var event = document.createEvent('HTMLEvents');
+                    event.initEvent('change', true, false);
+                    document.getElementById(elementId).dispatchEvent(event);
+                }
+         
+                // Event listeners for conditional display logic
+         
+         
+         document.getElementById('useLLM').addEventListener('change', function() {
+         var numberOfRowsContainer = document.getElementById('numberOfRowsContainer');
+         var llmServiceContainer = document.getElementById('llmServiceContainer');
+         var llmPromptContainer = document.getElementById('llmPromptContainer'); // Get the LLM Prompt Container
+         
+         if (this.checked) {
+         numberOfRowsContainer.style.display = 'block';
+         llmServiceContainer.style.display = 'block'; // Show LLM Service dropdown
+         llmPromptContainer.style.display = 'block'; // Always show LLM Prompt Container when LLM checkbox is checked
+         } else {
+         numberOfRowsContainer.style.display = 'none';
+         llmServiceContainer.style.display = 'none'; // Hide LLM Service dropdown
+         llmPromptContainer.style.display = 'none'; // Hide LLM Prompt Container when LLM checkbox is unchecked
+         }
+         
+         // Existing logic for other elements
+         toggleFileInput(document.getElementById('excelTemplate').value);
+         });
+         
+         
+         
+                // Initialize the form elements based on the checkbox states
+                window.onload = function() {
+            // Existing initialization logic
+            dispatchChangeEvent('buildDataServiceSchema');
+            dispatchChangeEvent('useLLM');
+         };
+         
+         
+         function toggleFileInput(value) {
+         var fileInputContainer = document.getElementById('fileInputContainer');
+         var tableContainer = document.getElementById('tableContainer');
+         var llmPromptDetails = document.getElementById('llmPromptDetails');
+         var fileNameLabel = document.getElementById('fileNameLabel');
+         var numberOfRowsContainer = document.getElementById('numberOfRowsContainer');
+         var llmServiceContainer = document.getElementById('llmServiceContainer');
+         var useLLMChecked = document.getElementById('useLLM').checked;
+         
+         // Reset visibility of elements
+         fileInputContainer.style.display = 'none';
+         tableContainer.style.display = 'none';
+         fileNameLabel.style.display = 'none';
+         numberOfRowsContainer.style.display = useLLMChecked ? 'block' : 'none';
+         llmServiceContainer.style.display = useLLMChecked ? 'block' : 'none'; 
+         
+         if (value === 'withTemplate') {
+         fileInputContainer.style.display = 'block';
+         llmPromptDetails.placeholder = "Optional: Provide specific instructions for data generation using the provided template. For example, specify any unique constraints or formats for each column.";
+         } else if (value === 'withoutTemplate') {
+         tableContainer.style.display = 'block';
+         fileNameLabel.style.display = 'block';
+         llmPromptDetails.placeholder = "Optional: Give details on what type of information should be present in each column. For example, The Location header should only have cities in the UK, the Date header should be formatted in dd/mm/yyyy";
+         }
+         }
+         
+         
+         
+         
+         function validateForm() {
+         var numberOfRows = document.getElementById('numberOfRows').value;
+         var fileName = document.getElementById('fileName').value;
+         var excelTemplate = document.getElementById('excelTemplate').value;
+         var llmService = document.getElementById('llmService').value; // Get the value of the LLM Service dropdown
+         
+         // Check if at least one of the checkboxes is checked
+         var buildDataServiceSchemaChecked = document.getElementById('buildDataServiceSchema').checked;
+         var useLLMChecked = document.getElementById('useLLM').checked;
+         if (!buildDataServiceSchemaChecked && !useLLMChecked) {
+         alert('Please select at least one option: Build Data Service Schema or Use LLM to create Synthetic Data.');
+         return false;
+         }
+         
+         // First, check if the template option is selected
+         if (excelTemplate === "" || excelTemplate === null) {
+         alert("Please select a template option.");
+         return false;
+         }
+         
+         // Validate 'Number of Rows' if 'Use LLM' is checked
+         if (useLLMChecked) {
+         var numberOfRowsValid = numberOfRows && !isNaN(numberOfRows) && numberOfRows >= 1 && numberOfRows <= 20000;
+         if (!numberOfRowsValid) {
+         alert('Number of Rows must be an integer between 1 and 20,000.');
+         return false;
+         }
+         
+         // Validate 'LLM Service' if 'Use LLM' is checked
+         if (llmService === '' || llmService === null) {
+         alert('Please select an LLM Service.');
+         return false;
+         }
+         }
+         
+         // Validate 'File Name' if 'XLSX/CSV Template' is chosen but no file is selected
+         if (excelTemplate === 'withTemplate' && document.getElementById('fileInput').files.length === 0) {
+         alert('Please upload a file.');
+         return false;
+         }
+         
+         // Validate 'File Name' if 'No XLSX/CSV Template' is chosen but no file name is entered
+         if (excelTemplate === 'withoutTemplate' && fileName.trim() === '') {
+         alert('File Name cannot be empty.');
+         return false;
+         }
+         
+         return true; // Form is valid if all conditions are met
+         }
+         
+         
+         
+         
+         
+         
+         function submitValues(elem) {
+         // Initialize the jsonObject
+         var jsonObject = {};
+         
+         // Check if the cancel button was clicked
+         if (elem.id === 'cancelButton') {
+         // If the cancel button is clicked, directly submit the form without validation
+         jsonObject.action = 'cancel';
+         var formData = JSON.stringify(jsonObject);
+         window.external.setResult(formData);
+         return true; // Exit the function early
+         }
+         
+         // Perform validation only if the cancel button was not clicked
+         if (!validateForm()) {
+         // Prevent form submission if validation fails
+         return false;
+         }
+         
+         // Set the action for jsonObject based on the button clicked
+         jsonObject.action = elem.id.replace('Button', '');
+         jsonObject.excelTemplate = document.getElementById('excelTemplate').value;
+         
+         // Capture the checkbox states
+         jsonObject.buildDataServiceSchemaChecked = document.getElementById('buildDataServiceSchema').checked;
+         jsonObject.useLLMChecked = document.getElementById('useLLM').checked;
+         
+         // Add the LLM Prompt Details to jsonObject if 'Use LLM' is checked
+         if (jsonObject.useLLMChecked) {
+         jsonObject.llmService = document.getElementById('llmService').value;
+         jsonObject.numberOfRows = document.getElementById('numberOfRows').value;
+         jsonObject.llmPromptDetails = document.getElementById('llmPromptDetails').value; // Capture LLM Prompt Details
+         }
+         
+         // Additional code for processing the form submission
+         // This should include collecting other form elements that are required for the submission
+         if (jsonObject.excelTemplate === 'withoutTemplate') {
+         jsonObject.fileName = document.getElementById('fileName').value;
+         jsonObject.headers = {};
+         var headerInputs = document.querySelectorAll('#headerRow .header-input');
+         for (var i = 0; i < headerInputs.length; i++) {
+         var dropdown = headerInputs[i].parentNode.querySelector('.select-field');
+         var header = headerInputs[i].value;
+         var columnType = dropdown.value;
+         jsonObject.headers[header] = columnType;
+         }
+         } else if (jsonObject.excelTemplate === 'withTemplate') {
+         var fileInput = document.getElementById('fileInput');
+         if (fileInput.files.length > 0) {
+         var file = fileInput.files[0];
+         jsonObject.fileName = file.name;
+         var reader = new FileReader();
+         reader.onload = function(e) {
+            jsonObject.file = e.target.result;
+            var formData = JSON.stringify(jsonObject);
+            window.external.setResult(formData);
+         };
+         reader.onerror = function(err) {
+            console.error('Error reading file', err);
+         };
+         reader.readAsDataURL(file);
+         return false; // Prevent the default form submission since we're using FileReader
+         } else {
+         alert('Please select an Excel file.');
+         return false;
+         }
+         }
+         
+         // Convert jsonObject to a JSON string for submission
+         var formData = JSON.stringify(jsonObject);
+         window.external.setResult(formData);
+         return true; // Allow the form submission if everything is valid
+         }
+         
+         
+         
+         
+                function addColumn() {
+            var headerRow = document.getElementById('headerRow');
+            var fakeRows = document.getElementsByClassName('fake-row');
+            var newHeaderCell = headerRow.insertCell(-1);
+            var newHeaderInput = document.createElement('input');
+            var headerNum = headerRow.cells.length;
+         
+            newHeaderInput.type = 'text';
+            newHeaderInput.value = 'Header ' + headerNum;
+            newHeaderInput.className = 'header-input';
+            newHeaderInput.setAttribute('onfocus', 'clearPlaceholder(this, "Header ' + headerNum + '")');
+            newHeaderInput.setAttribute('onblur', 'restorePlaceholder(this, "Header ' + headerNum + '")');
+            newHeaderCell.appendChild(newHeaderInput);
+         
+            var dropdown = document.createElement('select');
+            dropdown.className = 'select-field';
+            var options = ['General', 'Date', 'Number'];
+            options.forEach(function(optionValue) {
+                var option = document.createElement('option');
+                option.value = optionValue;
+                option.textContent = optionValue;
+                dropdown.appendChild(option);
+            });
+            newHeaderCell.appendChild(dropdown);
+         
+            for (var i = 0; i < fakeRows.length; i++) {
+                fakeRows[i].insertCell(-1).innerHTML = '....';
+            }
+         }
+         
+         
+                function removeColumn() {
+                    var headerRow = document.getElementById('headerRow');
+                    var fakeRows = document.getElementsByClassName('fake-row');
+         
+                    if (headerRow.cells.length > 1) {
+                        headerRow.deleteCell(-1);
+                        for (var i = 0; i < fakeRows.length; i++) {
+                            fakeRows[i].deleteCell(-1);
+                        }
+                    }
+                }
+         
+                function clearPlaceholder(input, placeholder) {
+                    if (input.value === placeholder) {
+                        input.value = '';
+                    }
+                }
+         
+                function restorePlaceholder(input, placeholder) {
+                    if (input.value === '') {
+                        input.value = placeholder;
+                    }
+                }
+      </script>
+   </body>
+</html>
