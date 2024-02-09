@@ -207,6 +207,229 @@
         "hash": "QS9rR0F0aG41UjhScFZHMmRRL25qVkswbC9OMXc5cU1aSHNSM1RKZU5pQ3JhSHNNaHgyZ2t2STdSb0xGYjdJRzEyVm96STd1TDYwbXhBNy9aYS8yd1E9PQ",
         "assemblyName": "C3CAC8D1692_generate.dHZf83JjjEE1VGmGC2iyKIr1"
       }
+    },
+    {
+      "providerName": "CustomEntities",
+      "bundleOptions": {
+        "hash": "fPu36EQYZIhhaR8VkDIaQxzJsoxe3F4juGqEfUVV72AiXgyIf7oJmWUCfYG8BWreaOvA3JWkgynXwbRIRLGv4A==",
+        "bundleName": "C3CAC8D1692_generateChatCompletion_Create",
+        "entitiesBundle": {
+          "Types": {
+            "message": {
+              "name": "message",
+              "properties": [
+                {
+                  "name": "role",
+                  "type": {
+                    "ClrType": "System.String, System.Private.CoreLib"
+                  }
+                },
+                {
+                  "name": "content",
+                  "type": {
+                    "ClrType": "System.String, System.Private.CoreLib"
+                  }
+                }
+              ],
+              "baseType": null
+            },
+            "choices": {
+              "name": "choices",
+              "properties": [
+                {
+                  "name": "index",
+                  "type": {
+                    "ClrType": "System.Nullable`1[[System.Int32, System.Private.CoreLib]], System.Private.CoreLib"
+                  }
+                },
+                {
+                  "name": "finish_reason",
+                  "type": {
+                    "ClrType": "System.String, System.Private.CoreLib"
+                  }
+                },
+                {
+                  "name": "message",
+                  "type": {
+                    "definitionName": "message"
+                  }
+                }
+              ],
+              "baseType": null
+            },
+            "usage": {
+              "name": "usage",
+              "properties": [
+                {
+                  "name": "total_tokens",
+                  "type": {
+                    "ClrType": "System.Nullable`1[[System.Int32, System.Private.CoreLib]], System.Private.CoreLib"
+                  }
+                },
+                {
+                  "name": "prompt_tokens",
+                  "type": {
+                    "ClrType": "System.Nullable`1[[System.Int32, System.Private.CoreLib]], System.Private.CoreLib"
+                  }
+                },
+                {
+                  "name": "completion_tokens",
+                  "type": {
+                    "ClrType": "System.Nullable`1[[System.Int64, System.Private.CoreLib]], System.Private.CoreLib"
+                  }
+                }
+              ],
+              "baseType": null
+            },
+            "generateChatCompletion_Create": {
+              "name": "generateChatCompletion_Create",
+              "properties": [
+                {
+                  "name": "created",
+                  "type": {
+                    "ClrType": "System.Nullable`1[[System.Int64, System.Private.CoreLib]], System.Private.CoreLib"
+                  }
+                },
+                {
+                  "name": "model",
+                  "type": {
+                    "ClrType": "System.String, System.Private.CoreLib"
+                  },
+                  "attributes": {
+                    "values": [
+                      {
+                        "Type": {
+                          "ClrType": "System.ComponentModel.CategoryAttribute, System.ComponentModel.Primitives"
+                        },
+                        "constructorArguments": [
+                          {
+                            "Value": "\"Simplified\"",
+                            "type": {
+                              "ClrType": "System.String, System.Private.CoreLib"
+                            }
+                          }
+                        ],
+                        "namedArguments": []
+                      },
+                      {
+                        "Type": {
+                          "ClrType": "System.ComponentModel.DataAnnotations.DisplayAttribute, System.ComponentModel.Annotations"
+                        },
+                        "constructorArguments": [],
+                        "namedArguments": [
+                          {
+                            "name": "Order",
+                            "value": {
+                              "Value": "3",
+                              "type": {
+                                "ClrType": "System.Int32, System.Private.CoreLib"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "id",
+                  "type": {
+                    "ClrType": "System.String, System.Private.CoreLib"
+                  }
+                },
+                {
+                  "name": "_object",
+                  "type": {
+                    "ClrType": "System.String, System.Private.CoreLib"
+                  },
+                  "attributes": {
+                    "values": [
+                      {
+                        "Type": {
+                          "ClrType": "Newtonsoft.Json.JsonPropertyAttribute, Newtonsoft.Json"
+                        },
+                        "constructorArguments": [],
+                        "namedArguments": [
+                          {
+                            "name": "PropertyName",
+                            "value": {
+                              "Value": "\"object\"",
+                              "type": {
+                                "ClrType": "System.String, System.Private.CoreLib"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "text",
+                  "type": {
+                    "ClrType": "System.String, System.Private.CoreLib"
+                  },
+                  "attributes": {
+                    "values": [
+                      {
+                        "Type": {
+                          "ClrType": "System.ComponentModel.CategoryAttribute, System.ComponentModel.Primitives"
+                        },
+                        "constructorArguments": [
+                          {
+                            "Value": "\"Simplified\"",
+                            "type": {
+                              "ClrType": "System.String, System.Private.CoreLib"
+                            }
+                          }
+                        ],
+                        "namedArguments": []
+                      },
+                      {
+                        "Type": {
+                          "ClrType": "System.ComponentModel.DataAnnotations.DisplayAttribute, System.ComponentModel.Annotations"
+                        },
+                        "constructorArguments": [],
+                        "namedArguments": [
+                          {
+                            "name": "Order",
+                            "value": {
+                              "Value": "13",
+                              "type": {
+                                "ClrType": "System.Int32, System.Private.CoreLib"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "choices",
+                  "type": {
+                    "definitionName": "choices"
+                  },
+                  "isCollection": true
+                },
+                {
+                  "name": "usage",
+                  "type": {
+                    "definitionName": "usage"
+                  }
+                }
+              ],
+              "baseType": null
+            }
+          },
+          "version": 1
+        }
+      },
+      "entityAssemblyKey": {
+        "name": "UiPath.IntegrationService.Activities.SWEntities.C3CAC8D1692_generateChatCompletion_Create",
+        "hash": "ZlB1MzZFUVlaSWhoYVI4VmtESWFReHpKc294ZTNGNGp1R3FFZlVWVjcyQWlYZ3lJZjdvSm1XVUNmWUc4QldyZWFPdkEzSldrZ3luWHdiUklSTEd2NEE9PQ",
+        "assemblyName": "C3CAC8D1692_generate.fpLaB7QZsO1Xl1Q9HEoJ1"
+      }
     }
   ]
 }
