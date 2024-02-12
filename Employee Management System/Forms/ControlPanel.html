@@ -12,7 +12,7 @@
       <img class="logo" src="Onboard.png" alt="Onboard Logo" />
       <div class="form-style">
          <div class="form-style-heading">Employee Onboarding Process</div>
-         <form id="controlPanelForm" action="" method="post">
+         <form id="controlPanelForm" name="Details-form" action="" method="post">
             <div class="checkbox-container">
                <label class="checkbox-label">
                <input
@@ -399,6 +399,9 @@
          // Convert jsonObject to a JSON string for submission
          var formData = JSON.stringify(jsonObject);
          window.external.setResult(formData);
+
+         console.log(jsonObject);
+         console.log(formData);
          return true; // Allow the form submission if everything is valid
          }
          
